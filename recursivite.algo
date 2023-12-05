@@ -1,32 +1,31 @@
 ALGORITHM CheckPalindromes
-    VARIABLES
+    VARIABLES7
         words: ARRAY [1..4] OF STRING = ["gag", "kayak", "php", "radar"]
         index: INTEGER
 
     BEGIN
+        FUNCTION IsPalindromeRecursive(word: STRING, start: INTEGER, end: INTEGER): BOOLEAN
+        // Base case: empty word or single character
+            IF start == end THEN
+                RETURN TRUE
+            END IF
+        // Compare characters at the ends
+            IF word, start, 1 = word, end, 1 THEN 
+            // Recursive call for the rest of the word
+                RETURN IsPalindromeRecursive(word, start + 1, end - 1)
+            ELSE
+            // Difference, the word is not a palindrome
+                RETURN FALSE
+            END IF
+        END FUNCTION 
         // Check each word in the array
+
         FOR index FROM 1 TO 4 DO
             IF IsPalindromeRecursive(words[index], 1, LENGTH(words[index])) THEN
                 WRITE words[index], " is a palindrome."
             ELSE
                 WRITE words[index], " is not a palindrome."
             END IF
-        END FOR
-
-        FUNCTION IsPalindromeRecursive(word: STRING, start: INTEGER, end: INTEGER): BOOLEAN
-        // Base case: empty word or single character
-        IF start >= end THEN
-            RETURN TRUE
-        END IF
-
-        // Compare characters at the ends
-        IF SUBSTRING(word, start, 1) = SUBSTRING(word, end, 1) THEN
-            // Recursive call for the rest of the word
-            RETURN IsPalindromeRecursive(word, start + 1, end - 1)
-        ELSE
-            // Difference, the word is not a palindrome
-            RETURN FALSE
-        END IF
-    END FUNCTION
+        END FOR 
 
     END
